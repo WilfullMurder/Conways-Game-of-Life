@@ -17,6 +17,9 @@ public class Cell {
     }
 
     public void setAlive(boolean alive) {
+        if(!this.alive && alive){
+            generation = 1;
+        }
         this.alive = alive;
     }
 
@@ -55,22 +58,14 @@ public class Cell {
      * @param x the x-coordinate of the neighbour
      * @param y the y-coordinate of the neighbour
      */
-    public void addNeighbour(int x, int y) {
+    public void addNeighbour(int x, int y, Cell neighbour) {
         if(x < 0 || x > 2 || y < 0 || y > 2) {
             return;
         }
         if(x == 1 && y == 1){
             return;
         }
-        if(neighbours[x][y] == null){
-            neighbours[x][y] = new Cell();
-            neighbours[x][y].setAlive(true);
-            return;
-        }
-        if(neighbours[x][y].isAlive()){
-            return;
-        }
-        neighbours[x][y].setAlive(true);
+        neighbours[x][y] = neighbour;
     }
 
     /**
@@ -106,19 +101,14 @@ public class Cell {
 
         if(!alive && aliveNeighbours == 3){
             // Cell is born
-            alive = true;
-            generation = 1;
+            setAlive(true);
             return;
         }
 
-        if(!alive){
-            alive = true;
-            generation = 1;
-            return;
+        if(alive){
+            // Cell lives on
+            generation++;
         }
-
-        generation++;
-
 
     }
 
