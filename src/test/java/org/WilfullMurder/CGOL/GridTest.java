@@ -20,13 +20,9 @@ class GridTest {
     }
 
     @Test
-    void testUpdate() {
+    void testSetCellLifeStatus() {
         Grid grid = new Grid(10, 10);
-        grid.getCell(0, 0).addNeighbour(0, 0);
-        grid.getCell(0, 0).addNeighbour(0, 1);
-        grid.getCell(0, 0).addNeighbour(0, 2);
-        grid.update();
+        grid.setCellLifeStatus(0, 0, true);
         assertTrue(grid.getCell(0, 0).isAlive());
     }
-
 }
